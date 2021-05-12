@@ -17,7 +17,7 @@ async function run() {
     await client.connect();
     console.log('Connected successfully to server')
     const db = client.db(dbName);
-    insertDocuments(db)
+    findDocuments(db)
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -37,4 +37,12 @@ const insertDocuments = function(db, callback) {
         console.log("inserted 3 documents into the collection");
 
     });
+}
+
+const findDocuments = function(db) {
+    const collection = db.collection('fruits')
+    collection.find({}).toArray(function(err, fruits) {
+        console.log("found the following records")
+        console.log(fruits)
+    })
 }
